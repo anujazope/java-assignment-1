@@ -1,0 +1,321 @@
+                                                                                            ANUJA TUSHAR ZOPE
+                                             
+                                ASSIGNMENT NO 1 
+
+ Define a abstract class Quadrangle with methods getHeight, getWidth, getArea
+ANS: -
+import java.util.Scanner;
+public abstract class quadrangle
+{
+     public static void main(String []args)
+     {
+        //Take input from the user 
+        //Create an instance of the Scanner Class
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the base1 of the b1: ");
+        int base1=sc.nextInt();
+        System.out.println("Enter the base2 of the b2: ");
+        int base2=sc.nextInt();
+        System.out.println("Enter the height1 of the h1: ");
+        int height1=sc.nextInt();
+        System.out.println("Enter the height2 of the h2: ");
+        int height2=sc.nextInt();
+        System.out.println("Enter the width1 of the w1: ");
+        int width1=sc.nextInt();
+        System.out.println("Enter the width2 of the w2: ");
+        int width2=sc.nextInt();
+        
+        
+        int area1=1/2*base1*height1;
+        int area2=1/2*base2*height2;
+        int area3=area1+area2;
+        System.out.println("Area of a1 is  = " +area1);
+        System.out.println("Area of a2 is   = " +area2);
+        System.out.println("Area of the quadrangle = " + area3);
+     }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Inherit this class into child classes - Square, Rectangle, Parallelogram with their own implementation of relevant methods.
+ANS: -
+public abstract class Shape
+{
+   private double height;  
+   private double width;
+   private double side;
+   private double base;
+
+   // Set height and width
+   public void setValues(double height, double width)
+   {
+      this.height = height;
+      this.width = width;
+      this.side = side;
+   }
+
+   //Get height
+   public double getHeight() 
+   {
+       return height;
+   }
+     
+   public double getWidth() 
+   {
+       return width;
+   } 
+
+   public abstract double getArea();
+}
+public class Rectangle extends Shape
+{
+    
+    public double getArea()
+    {
+        return getHeight() * getWidth();
+    }
+}
+public class Square extends Shape
+{
+    public double getArea()
+    {
+        return side() * side();
+    }
+    
+}
+public class parallelogram extends Shape
+{
+    public double getArea()
+    {
+        return base() * height();
+    }
+}
+public class AbstractDemo
+{
+    
+        Shape shape;
+        
+        Rectangle rect = new Rectangle();
+        shape=rect;
+        Shape.setValues(78,5);
+        System.out.println("Area of rectangle :" +shape.getArea());
+        
+        Square squa = new Square();
+        shape=squa;
+        Shape.setValues(80,5);
+        System.out.println("Area of Square :" +shape.getArea());
+        
+        parallelogram parallel = new parallelogram();
+        shape=parallel;
+        Shape.setValues(85,7);
+        System.out.println("Area of parallelogram :" +shape.getArea());
+     }
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Write a main program that accepts the name of quadrangle for which user wishes to calculate the details and provide output accordingly.Add another child class Trapezium with relevant implementation.Alter your main program in such a way that adding such new child classes shouldn't incurr any line change in main program itself. Note that trick is to accept shape name (child class name) from user in the first place. If that is done, adding classes like Trapezium shouldn't impact code change to main program.
+ANS : -
+public class Quadrilateral
+{
+protected int x1,x2,x3,x4,y1,y2,y3,y4;
+protected void setCoordinate(int a,int b,int c,int d,int e,int f,int g,int h)
+{
+x1=a;
+y1=b;
+x2=c;
+y2=d;
+x3=e;
+y3=f;
+x4=g;
+y4=h;
+}
+}
+
+ class Square extends Quadrilateral
+{
+Square(int a,int b,int c,int d,int e,int f,int g,int h)
+{
+setCoordinate(a,b,c,d,e,f,g,h);
+}
+int area()
+{
+int d=(int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+return d*d;
+}
+}
+
+
+ 
+ class Rectangle extends Quadrilateral
+{
+Rectangle(int a,int b,int c,int d,int e,int f,int g,int h)
+{
+setCoordinate(a,b,c,d,e,f,g,h);
+}
+int area()
+{
+int d1=(int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+int d2=(int)Math.sqrt((x1-x4)*(x1-x4)+(y1-y4)*(y1-y4));
+return d1*d2;
+}
+}
+
+ class Trapezoid extends Quadrilateral
+{
+private int height;
+Trapezoid(int a,int b,int c,int d,int e,int f,int g,int h,int height)
+{
+setCoordinate(a,b,c,d,e,f,g,h);
+this.height=height;
+}
+int area()
+{
+int d1=(int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+int d2=(int)Math.sqrt((x3-x4)*(x3-x4)+(y3-y4)*(y3-y4));
+return (int)((d1+d2)*height)/2;
+}
+}
+
+ class Parallelogram extends Quadrilateral
+{
+private int height;
+Parallelogram(int a,int b,int c,int d,int e,int f,int g,int h,int height)
+{
+setCoordinate(a,b,c,d,e,f,g,h);
+this.height=height;
+}
+int area()
+{
+int d1=(int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+return d1*height;
+}
+}
+
+
+ class TestQuadrilateral
+{
+public static void main(String []args)
+{
+Square sq=new Square(10,20,30,20,20,20,10,20);
+System.out.println("Area Of The Square is " + sq.area());
+Rectangle rec=new Rectangle(10,10,40,10,10,20,10,10);
+System.out.println("Area Of The Rectangle is " + rec.area());
+Parallelogram p=new Parallelogram(10,10,30,10,20,20,0,20,8);
+System.out.println("Area Of The Parallelogram is " + p.area());
+Trapezoid t=new Trapezoid(10,10,30,10,40,20,0,20,8);
+System.out.println("Area Of The Trapezoid is " + t.area());
+}
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Alter your main program in such a way that adding such new child classes shouldn't incurr any line change in main program itself. Note that trick is to accept shape name (child class name) from user in the first place. If that is done, adding classes like Trapezium shouldn't impact code change to main program.Add another class Rhombus with relevant and without changing the main program, get details for instance of rhombus as well.
+ANS: -
+public class Quadrilateral
+{
+protected int x1,x2,x3,x4,y1,y2,y3,y4;
+protected void setCoordinate(int a,int b,int c,int d,int e,int f,int g,int h)
+{
+x1=a;
+y1=b;
+x2=c;
+y2=d;
+x3=e;
+y3=f;
+x4=g;
+y4=h;
+d1=i;
+d2=j;
+}
+}
+
+ class Square extends Quadrilateral
+{
+Square(int a,int b,int c,int d,int e,int f,int g,int h)
+{
+setCoordinate(a,b,c,d,e,f,g,h);
+}
+int area()
+{
+int d=(int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+return d*d;
+}
+}
+
+
+ 
+ class Rectangle extends Quadrilateral
+{
+Rectangle(int a,int b,int c,int d,int e,int f,int g,int h)
+{
+setCoordinate(a,b,c,d,e,f,g,h);
+}
+int area()
+{
+int d1=(int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+int d2=(int)Math.sqrt((x1-x4)*(x1-x4)+(y1-y4)*(y1-y4));
+return d1*d2;
+}
+}
+
+ class Trapezoid extends Quadrilateral
+{
+private int height;
+Trapezoid(int a,int b,int c,int d,int e,int f,int g,int h,int height)
+{
+setCoordinate(a,b,c,d,e,f,g,h);
+this.height=height;
+}
+int area()
+{
+int d1=(int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+int d2=(int)Math.sqrt((x3-x4)*(x3-x4)+(y3-y4)*(y3-y4));
+return (int)((d1+d2)*height)/2;
+}
+}
+
+ class Parallelogram extends Quadrilateral
+{
+private int height;
+Parallelogram(int a,int b,int c,int d,int e,int f,int g,int h,int height)
+{
+setCoordinate(a,b,c,d,e,f,g,h);
+this.height=height;
+}
+int area()
+{
+int d1=(int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+return d1*height;
+}
+}
+
+ class Rhombus extends Quadrilateral
+ {
+private int d1;
+private int d2;
+{
+    setCoordinate(d1,d2);
+    this.d1=d1;
+    this.d2=d2;
+}
+int area()
+{
+    int r=(d1+d2)/2;
+    return r;
+}
+}
+
+
+ }
+
+ class TestQuadrilateral
+{
+public static void main(String []args)
+{
+Square sq=new Square(20,10,10,30,10,10,10,20);
+System.out.println("Area Of The Square is " + sq.area());
+Rectangle rec=new Rectangle(30,20,10,10,30,10,10,20);
+System.out.println("Area Of The Rectangle is " + rec.area());
+Parallelogram p=new Parallelogram(10,10,20,10,10,40,0,20,8);
+System.out.println("Area Of The Parallelogram is " + p.area());
+Trapezoid t=new Trapezoid(10,10,30,10,40,20,0,20,8);
+System.out.println("Area Of The Trapezoid is " + t.area());
+Rhombus r=new Rhombus(10,30);
+System.out.println("Area of The Rhombus is " +r.area());
+}
+}
